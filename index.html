@@ -1,90 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR Saraswati Darshan</title>
+    <title>AR Saraswati Darshan (Simple Test)</title>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    
-    <style>
-      /* Basic setup for the page */
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-      }
-
-      /* A container for our title and button */
-      .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1; /* Make sure it's on top */
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        text-align: center;
-        background: linear-gradient(135deg, #f5d020, #f53803);
-      }
-
-      /* Big Title Styling */
-      h1 {
-        font-size: 3.5em;
-        color: white;
-        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
-        padding: 0 20px;
-      }
-
-      /* Button Styling */
-      #enterAR {
-        font-size: 22px;
-        font-weight: bold;
-        color: white;
-        padding: 15px 35px;
-        border: none;
-        border-radius: 50px;
-        background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9f43);
-        background-size: 200% 200%;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s;
-        /* Link the animation here */
-        animation: pulse 2s infinite;
-      }
-
-      /* Make the button slightly bigger on hover (for desktop) */
-      #enterAR:hover {
-        transform: scale(1.05);
-      }
-
-      /* CSS Animation Definition */
-      @keyframes pulse {
-        0% {
-          transform: scale(0.95);
-          box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
-        }
-        70% {
-          transform: scale(1);
-          box-shadow: 0 0 0 20px rgba(255, 107, 107, 0);
-        }
-        100% {
-          transform: scale(0.95);
-          box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
-        }
-      }
-    </style>
   </head>
   <body>
-    <div class="overlay">
-      <h1>Welcome to Digital Saraswati Pooja</h1>
-      <button id="enterAR">Start AR Pooja</button>
-    </div>
-
-    <a-scene 
-      webxr="optionalFeatures: camera-access, dom-overlay; overlayElement: #overlay;"
+    <a-scene  
       renderer="colorManagement: true;"
       vr-mode-ui="enabled: false"
-      ar-mode-ui="enabled: true; enterARButton: #enterAR;"
+      ar-mode-ui="enabled: true;"
       background="transparent">
       
       <a-assets>
@@ -109,14 +33,12 @@
         const sceneEl = document.querySelector('a-scene');
         const video = document.getElementById('saraswatiVideo');
         
-        // Try to play the video when AR mode starts
         sceneEl.addEventListener('enter-vr', () => {
           if (sceneEl.is('ar-mode')) {
             video.play();
           }
         });
 
-        // Fallback: If autoplay fails, play the video when the user taps the screen.
         sceneEl.addEventListener('click', () => {
             video.play();
         });
