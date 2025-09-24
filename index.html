@@ -11,6 +11,10 @@
       ar-mode-ui="enabled: true;"
       background="transparent">
       
+      <a-camera>
+        <a-cursor></a-cursor>
+      </a-camera>
+
       <a-assets>
         <video id="saraswatiVideo" 
                src="https://raw.githubusercontent.com/algoarchemist/ar-saraswati/main/saraswati-video.webm"
@@ -22,33 +26,50 @@
       </a-assets>
 
       <a-text
-        value="Welcome to  Saraswati Pooja"
+        id="title-text"
+        value="Welcome to Digital Saraswati Pooja"
         position="0 2.8 -3"
         align="center"
         color="yellow"
         width="4">
       </a-text>
+      
+      <a-entity
+        id="start-button"
+        geometry="primitive: plane; width: 1.2; height: 0.4"
+        material="color: #007aff; opacity: 0.8"
+        position="0 0.5 -3"
+        text="value: Start Pooja; align: center; color: white; width: 2.5">
+      </a-entity>
 
       <a-entity
+        id="video-plane"
         material="shader: flat; src: #saraswatiVideo; transparent: true;"
         geometry="primitive: plane; width: 2; height: 2;"
-        position="0 1.5 -3">
+        position="0 1.5 -3"
+        visible="false">
       </a-entity>
     </a-scene>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const sceneEl = document.querySelector('a-scene');
+        // Find all our important elements
         const video = document.getElementById('saraswatiVideo');
+        const startButton = document.getElementById('start-button');
+        const videoPlane = document.getElementById('video-plane');
+        const titleText = document.getElementById('title-text');
         
-        sceneEl.addEventListener('enter-vr', () => {
-          if (sceneEl.is('ar-mode')) {
-            video.play();
-          }
-        });
-
-        sceneEl.addEventListener('click', () => {
-            video.play();
+        // Listen for a click specifically on the start button
+        startButton.addEventListener('click', () => {
+          // 1. Play the video
+          video.play();
+          
+          // 2. Make the video plane visible
+          videoPlane.setAttribute('visible', 'true');
+          
+          // 3. Hide the start button and the title
+          startButton.setAttribute('visible', 'false');
+          titleText.setAttribute('visible', 'false');
         });
       });
     </script>
